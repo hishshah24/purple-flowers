@@ -1,59 +1,62 @@
 const waNumber = "6281515521739";
-const danaNumber = "+62 856-0663-7038";
+const danaNumber = "+62 856-0663-7038"; // Nomor DANA Pembayaran
 const price = 15000;
 let cart = [];
 let userEmail = "";
 
-// Database Bunga
+// Database Nama Bunga (Akan diulang untuk 30 produk)
 const flowerBases = [
     "Tulip Purple Candy", "Mawar Kapas Lilac", "Edelweiss Dreamy", 
     "Melati Putih Suci", "Matahari Peach", "Lavender Cold Mist", 
-    "Peony Soft Cream", "Hydrangea Blue Sky"
+    "Peony Soft Cream", "Hydrangea Blue Sky", "Lily White Pearl", 
+    "Sakura Pink Cotton"
 ];
 
-// Generate 30 Produk Otomatis
+// 1. Generate 30 Produk Otomatis
 const products = [];
 for (let i = 1; i <= 30; i++) {
     const baseName = flowerBases[(i - 1) % flowerBases.length];
     products.push({
         id: i,
-        name: `${baseName} Vol. ${i}`,
-        img: `img/bunga${i}.jpg`, // Mencari file bunga1.jpg, bunga2.jpg, dst
+        name: `${baseName} No. ${i}`,
+        img: `img/bunga${i}.jpg`, // Mencari file bunga1.jpg sampai bunga30.jpg
         price: price
     });
 }
 
-// Sistem Navigasi
+// 2. Sistem Navigasi Antar Halaman
 function showPage(pageId) {
-    if (!userEmail) return;
+    if (!userEmail) return; // Wajib login untuk akses halaman
     document.querySelectorAll('.page-content').forEach(p => p.classList.add('hidden'));
     document.getElementById(`page-${pageId}`).classList.remove('hidden');
     window.scrollTo(0, 0);
 }
 
-// Sistem Login
+// 3. Sistem Login Gmail (Simulasi)
 document.getElementById('login-btn').addEventListener('click', () => {
     const email = prompt("Halo Cantik! Masukkan email Gmail Anda untuk masuk:");
     if (email && email.includes("@gmail.com")) {
         userEmail = email;
         document.getElementById('login-overlay').classList.add('hidden');
         document.getElementById('navbar').classList.remove('hidden');
-        showPage('home');
+        showPage('home'); // Masuk ke halaman utama setelah login
     } else {
         alert("Maaf, wajib menggunakan akun Gmail ya ✨");
     }
 });
 
-// Render Produk ke Katalog
+// 4. Render Produk ke dalam Katalog (HTML Grid)
 function renderKatalog() {
     const grid = document.getElementById('product-grid');
+    if (!grid) return;
     grid.innerHTML = "";
+    
     products.forEach(p => {
         const card = document.createElement('div');
         card.className = "product-card shadow-sm";
         card.innerHTML = `
             <div class="img-box">
-                <img src="${p.img}" alt="${p.name}" onerror="this.src='https://placehold.co/400x500/f3f0ff/9d81d1?text=Fresh+Flower'">
+                <img src="${p.img}" alt="${p.name}" onerror="this.src='https://placehold.co/400x500/f3f0ff/9d81d1?text=Hishshah+Flowers'">
             </div>
             <h3 class="text-xl font-bold text-purple-900 mb-1">${p.name}</h3>
             <p class="text-purple-400 font-bold mb-4 font-fancy text-2xl">Rp 15.000</p>
@@ -65,36 +68,38 @@ function renderKatalog() {
     });
 }
 
-// Sistem Keranjang
+// 5. Logika Keranjang (Cart)
 function addToCart(name) {
     cart.push(name);
     const cartEl = document.getElementById('floating-cart');
-    cartEl.classList.remove('translate-x-[150%]');
+    cartEl.classList.remove('translate-x-[150%]'); // Munculkan cart
     document.getElementById('cart-count').innerText = `${cart.length} Bunga terpilih`;
 }
 
-// Checkout WhatsApp & Info DANA
+// 6. Checkout WhatsApp + Integrasi Pembayaran DANA
 document.getElementById('checkout-btn').addEventListener('click', () => {
     if (cart.length === 0) return;
 
     const total = cart.length * price;
     const list = cart.map((item, i) => `${i + 1}. ${item}`).join('%0A');
     
+    // Format Pesan WhatsApp
     const message = `Halo Hishshah Flowers! 🌷🍬%0A%0A` +
-                `*DETAIL PESANAN:*%0A${list}%0A%0A` +
+                `*DAFTAR BELANJA:*%0A${list}%0A%0A` +
                 `*TOTAL HARGA:* Rp ${total.toLocaleString('id-ID')}%0A` +
                 `*EMAIL PEMBELI:* ${userEmail}%0A%0A` +
                 `----------------------------%0A` +
-                `*INFO PEMBAYARAN (DANA):*%0A` +
-                `Nomor: ${danaNumber}%0A` +
-                `Silakan kirim bukti transfer ke sini ya! ✨`;
+                `*INFO PEMBAYARAN DANA:*%0A` +
+                `Nomor DANA: ${danaNumber}%0A%0A` +
+                `Silakan kirim bukti transfer ke nomor ini ya! ✨`;
     
     window.open(`https://wa.me/${waNumber}?text=${message}`, '_blank');
 });
 
-// Logout
+// 7. Fungsi Logout
 document.getElementById('logout-btn').addEventListener('click', () => {
-    location.reload();
+    location.reload(); // Segarkan halaman untuk reset state
 });
 
+// Jalankan fungsi render saat script dimuat
 renderKatalog();
