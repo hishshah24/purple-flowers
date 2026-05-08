@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hishshah Flowers | Dreamy Lilac Candy Shop</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="decor candy-1">🍬</div>
+    <div class="decor candy-2">🍭</div>
+    <div class="decor tulip-1">🌷</div>
+    <div class="decor basket-1">🧺</div>
+
+    <div id="login-overlay" class="fixed inset-0 z-[100] flex items-center justify-center bg-[#f3f0ff]">
+        <div class="bg-white p-10 rounded-[60px] shadow-2xl text-center border-4 border-purple-100 max-w-sm mx-4 relative overflow-hidden">
+            <div class="absolute -top-5 -right-5 text-4xl">🍬</div>
+            <h2 class="font-fancy text-4xl text-purple-400 mb-2">Hishshah Flowers</h2>
+            <p class="text-gray-400 mb-6 text-sm italic">"Dinginnya kapas, hangatnya bunga" ✨</p>
+            <button id="login-btn" class="btn-primary w-full py-4 rounded-full font-bold shadow-lg">
+                Login with Gmail
+            </button>
+        </div>
+    </div>
+
+    <nav id="navbar" class="hidden sticky top-0 z-50 px-8 py-4 flex justify-between items-center bg-white/60 backdrop-blur-md border-b-2 border-purple-100">
+        <div class="logo text-3xl font-bold text-purple-400 font-fancy">Hishshah Flowers</div>
+        <div class="flex items-center gap-6">
+            <a href="#" onclick="showPage('home')" class="nav-link font-semibold text-purple-800 hover:text-purple-400 transition">Beranda</a>
+            <a href="#" onclick="showPage('katalog')" class="nav-link font-semibold text-purple-800 hover:text-purple-400 transition">Katalog</a>
+            <button id="logout-btn" class="text-red-400 text-xs font-bold border-b border-red-200">LOGOUT</button>
+        </div>
+    </nav>
+
+    <section id="page-home" class="hidden page-content min-h-screen flex items-center justify-center p-6 bg-gradient-to-b from-transparent to-[#fff5f5]">
+        <div class="text-center bg-white/30 backdrop-blur-sm p-12 rounded-[80px] border-2 border-white shadow-xl max-w-3xl">
+            <h1 class="text-6xl text-purple-500 mb-4 font-fancy">Kapas Ungu & Permen Manis</h1>
+            <p class="text-lg text-gray-600 mb-8 leading-relaxed">Temukan keajaiban dalam setiap kelopak. Koleksi bunga segar dengan desain bucket estetik khusus untukmu. 🌸🍬</p>
+            <button onclick="showPage('katalog')" class="btn-primary px-12 py-4 rounded-full text-lg shadow-xl font-bold">Pilih Bunga Sekarang 🧺</button>
+        </div>
+    </section>
+
+    <section id="page-katalog" class="hidden page-content container mx-auto px-6 py-16">
+        <div class="text-center mb-12">
+            <h2 class="text-5xl text-purple-400 font-fancy">Koleksi Bucket Fresh</h2>
+            <p class="text-gray-400 italic">"Sentuhan lembut untuk momen spesial"</p>
+        </div>
+        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
+            </div>
+    </section>
+
+    <div id="floating-cart" class="fixed bottom-8 right-8 flex items-center gap-4 translate-x-[150%] transition-all duration-700 z-50">
+        <div class="bg-[#fff176] p-5 rounded-[40px] shadow-2xl border-2 border-yellow-300 flex items-center gap-4">
+            <div class="text-3xl">🧺</div>
+            <div>
+                <p id="cart-count" class="font-bold text-yellow-900 text-sm">0 Bunga</p>
+                <button id="checkout-btn" class="text-xs bg-purple-500 text-white px-4 py-2 rounded-full mt-1 hover:bg-purple-600 transition shadow-md">Bayar Sekarang</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
